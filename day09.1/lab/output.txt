@@ -1,0 +1,75 @@
+============================================================
+Day 09 Lab — Supervisor-Worker Graph
+============================================================
+
+▶ Query: SLA xử lý ticket P1 là bao lâu?
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights: 100%|████████████████████████████████████████████████████████████| 103/103 [00:00<00:00, 2791.14it/s]
+BertModel LOAD REPORT from: sentence-transformers/all-MiniLM-L6-v2
+Key                     | Status     |  |
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  |
+
+Notes:
+- UNEXPECTED:   can be ignored when loading from different task/architecture; not ok if you expect identical arch.     
+  Route    : retrieval_worker
+  Reason   : Phát hiện từ khóa tra cứu tài liệu/SLA → retrieval_worker
+  Workers  : ['retrieval_worker', 'synthesis_worker']
+  Answer   : [SYNTHESIS ERROR] Không thể gọi LLM. Kiểm tra API key trong .env.
+  Confidence: 0.1
+  Latency  : 26628ms
+  Trace saved → ./artifacts/traces/run_20260414_165059.json
+
+▶ Query: Khách hàng Flash Sale yêu cầu hoàn tiền vì sản phẩm lỗi — được không?
+  Route    : policy_tool_worker
+  Reason   : Phát hiện yêu cầu về policy/cấp quyền/tác vụ đặc biệt → policy_tool_worker
+  Workers  : ['policy_tool_worker', 'retrieval_worker', 'synthesis_worker']
+  Answer   : [SYNTHESIS ERROR] Không thể gọi LLM. Kiểm tra API key trong .env.
+  Confidence: 0.1
+  Latency  : 77ms
+  Trace saved → ./artifacts/traces/run_20260414_165126.json
+
+▶ Query: Cần cấp quyền Level 3 để khắc phục P1 khẩn cấp. Quy trình là gì?
+  Route    : policy_tool_worker
+  Reason   : Phát hiện yêu cầu về policy/cấp quyền/tác vụ đặc biệt → policy_tool_worker (Risk High Flagged)
+  Workers  : ['policy_tool_worker', 'retrieval_worker', 'synthesis_worker']
+  Answer   : [SYNTHESIS ERROR] Không thể gọi LLM. Kiểm tra API key trong .env.
+  Confidence: 0.1
+  Latency  : 68ms
+  Trace saved → ./artifacts/traces/run_20260414_165126.json
+
+▶ Query: Hệ thống báo lỗi ERR-999 không rõ nguyên nhân.
+
+⚠️  HITL TRIGGERED
+   Task: Hệ thống báo lỗi ERR-999 không rõ nguyên nhân.
+   Reason: Phát hiện mã lỗi không rõ hoặc thiếu context → human_review
+   Action: Auto-approving in lab mode (set hitl_triggered=True)
+
+  Route    : retrieval_worker
+  Reason   : Phát hiện mã lỗi không rõ hoặc thiếu context → human_review | human approved → retrieval
+  Workers  : ['human_review', 'retrieval_worker', 'synthesis_worker']
+  Answer   : [SYNTHESIS ERROR] Không thể gọi LLM. Kiểm tra API key trong .env.
+  Confidence: 0.1
+  Latency  : 38ms
+  Trace saved → ./artifacts/traces/run_20260414_165126.json
+
+✅ graph.py test complete.
+PS C:\Users\phanl\Documents\AIthucchien>
+
+
+
+
+  Reason   : Phát hiện mã lỗi không rõ hoặc thiếu context → human_review | human approved → retrieval
+  Workers  : ['human_review', 'retrieval_worker', 'synthesis_worker']
+  Answer   : [SYNTHESIS ERROR] Không thể gọi LLM. Kiểm tra API key trong .env.
+  Confidence: 0.1
+  Latency  : 38ms
+  Trace saved → ./artifacts/traces/run_20260414_165126.json
+
+✅ graph.py test complete.
+PS C:\Users\phanl\Documents\AIthucchien>
+
+
+
+
+
